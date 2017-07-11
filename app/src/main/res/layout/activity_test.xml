@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+         xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <data>
+        <variable
+            name="student"
+            type="cn.bupt.dozenpiggy.testproject.bean.Student" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/student_firstName_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{student.firstName}" />
+        <TextView
+            android:id="@+id/student_lastName_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{student.lastName}" />
+
+    </LinearLayout>
+
+</layout>
+
