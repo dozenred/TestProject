@@ -22,6 +22,9 @@ public class TestActivity extends AppCompatActivity implements EasyPermissions.P
     private static final String TAG = "TestActivity";
     ActivityTestBinding mBinding;
     private static final int RC_CAMERA_AND_LOCATION = 1;
+    private static final int RC_EXTERNAL_STORAGE = 2;
+
+    private static final String[] perms = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class TestActivity extends AppCompatActivity implements EasyPermissions.P
         mBinding.setStudent(student);
         //setContentView(R.layout.activity_test);
         methodRequiresTwoPermission();
+
     }
 
     @Override
@@ -39,9 +43,12 @@ public class TestActivity extends AppCompatActivity implements EasyPermissions.P
 
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
+    /**有了注解之后就会再次调用if方法，类似于回调
+     *没有注解的话，通过实现EasyPermisson的回调函数来处理已经获得的权限和未获得的权限之后的逻辑
+     * requestPermissions 中第二个参数是当应用申请的权限被拒绝后 再次打开应用会优先弹出的提示对话框内容（为什么需要这组权限）
+     */
     //@AfterPermissionGranted(RC_CAMERA_AND_LOCATION)
     private void methodRequiresTwoPermission() {
-        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION};
         if (EasyPermissions.hasPermissions(this, perms)) {
             // Already have permission, do the thing
             Toast.makeText(this, "ooooooo", Toast.LENGTH_SHORT).show();
@@ -52,21 +59,27 @@ public class TestActivity extends AppCompatActivity implements EasyPermissions.P
         }
     }
 
+//    private void methodRequiresWritePermission() {
+//        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//        if(EasyPermissions.hasPermissions(this, perms)) {
+//            Toast.makeText(this, "write external storage granted", Toast.LENGTH_SHORT).show();
+//        } else {
+//            EasyPermissions.requestPermissions(this, getString(R.string.write_external_rationale),
+//                    RC_EXTERNAL_STORAGE, perms);
+//        }
+//    }
+
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        for(int i = 0; i < perms.size(); i++){
+        for (int i = 0; i < perms.size(); i++) {
             Log.d(TAG, "onPermissionsGranted:" + perms.get(i));
         }
 
-        switch (requestCode) {
-            case RC_CAMERA_AND_LOCATION:
-                if(perms.size() == 2){
-                    Toast.makeText(this, "all permission granted", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-                break;
+        if (perms.size() == 3) {
+            //if all granted......do the thing
+            Toast.makeText(this, "all permission granted", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @Override
@@ -77,14 +90,14 @@ public class TestActivity extends AppCompatActivity implements EasyPermissions.P
         // This will display a dialog directing them to enable the permission in app settings.
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             new AppSettingsDialog.Builder(this)
-                    .setTitle("需要权限")
-                    .setRationale("不给权限不让你用")
-                    .setNegativeButton("取消吗")
-                    .setPositiveButton("确定吧").build().show();
+                    .setTitle("此应用需要使用权限")
+                    .setRationale("永远禁止将退出此应用！")
+                    .setNegativeButton("取消")
+                    .setPositiveButton("确定").build().show();
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("提示");
-            builder.setMessage("缺少权限");
+            builder.setMessage("此应用缺少必要的运行权限，将退出！");
             builder.setNegativeButton("退出", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -102,7 +115,7 @@ public class TestActivity extends AppCompatActivity implements EasyPermissions.P
 
         if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
             // Do something after user returned from app settings screen, like showing a Toast.
-            String[] perms = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION};
+            //String[] perms = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE};
             if (EasyPermissions.hasPermissions(this, perms)) {
                 // Already have permission, do the thing
                 Toast.makeText(this, R.string.returned_from_app_settings_to_activity  , Toast.LENGTH_SHORT)

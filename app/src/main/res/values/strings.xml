@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">TestProject</string>
     <string name="camera_and_location_rationale">CAMERA and ACCESS_FINE_LOCATION permisson</string>
+    <string name="write_external_rationale">SD card write storage</string>
     <string name="returned_from_app_settings_to_activity">welcome back to app</string>
 </resources>
