@@ -8,7 +8,7 @@ import android.view.View;
 
 import cn.bupt.dozenpiggy.testproject.bean.Student;
 import cn.bupt.dozenpiggy.testproject.databinding.ActivityTestBinding;
-import cn.bupt.dozenpiggy.testproject.ui.PermissionActivity;
+import cn.bupt.dozenpiggy.testproject.ui.StatusBarActivity;
 
 public class TestActivity extends AppCompatActivity {
     private static final String TAG = "TestActivity";
@@ -22,15 +22,29 @@ public class TestActivity extends AppCompatActivity {
         //mBinding.setStudent(student);
         //setContentView(R.layout.activity_test);
 
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
 
         jumpToPermissionActivity();
+        jumpToStatusBarActivity();
+    }
+
+    private void jumpToStatusBarActivity() {
+        mBinding.jumpToStatusActivityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), StatusBarActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void jumpToPermissionActivity() {
         mBinding.jumpToPermissionActivityBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PermissionActivity.class);
+                Intent intent = new Intent(v.getContext(), StatusBarActivity.class);
                 startActivity(intent);
             }
         });

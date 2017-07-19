@@ -22,6 +22,16 @@
         </activity>
         <activity android:name=".ui.PermissionActivity">
         </activity>
+        <activity
+            android:name=".ui.StatusBarActivity"
+            android:theme="@style/TestTheme">
+        </activity>
+        <activity
+            android:name=".ui.BaseActivity"
+            android:theme="@style/TestTheme">
+        </activity>
+        <activity android:name=".ui.ViewPagerActivity">
+        </activity>
     </application>
 
 </manifest>
