@@ -9,6 +9,7 @@ import android.view.View;
 import cn.bupt.dozenpiggy.testproject.bean.Student;
 import cn.bupt.dozenpiggy.testproject.databinding.ActivityTestBinding;
 import cn.bupt.dozenpiggy.testproject.ui.StatusBarActivity;
+import cn.bupt.dozenpiggy.testproject.ui.ViewPagerActivity;
 
 public class TestActivity extends AppCompatActivity {
     private static final String TAG = "TestActivity";
@@ -28,6 +29,17 @@ public class TestActivity extends AppCompatActivity {
 
         jumpToPermissionActivity();
         jumpToStatusBarActivity();
+        jumpToViewPagerActivity();
+    }
+
+    private void jumpToViewPagerActivity() {
+        mBinding.jumpToViewpagerActivityBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewPagerActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void jumpToStatusBarActivity() {
