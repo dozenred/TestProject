@@ -14,9 +14,10 @@ import java.util.List;
 import cn.bupt.dozenpiggy.testproject.R;
 import cn.bupt.dozenpiggy.testproject.adapter.MyFragmentPagerAdapter;
 import cn.bupt.dozenpiggy.testproject.adapter.MyPagerAdapter;
-import cn.bupt.dozenpiggy.testproject.animation.ZoomOutPageTransformer;
+import cn.bupt.dozenpiggy.testproject.animation.DepthPageTransformer;
 import cn.bupt.dozenpiggy.testproject.databinding.ActivityViewPagerBinding;
-import cn.bupt.dozenpiggy.testproject.fragment.PageFragment;
+import cn.bupt.dozenpiggy.testproject.fragment.PageFragment1;
+import cn.bupt.dozenpiggy.testproject.fragment.PageFragment2;
 
 public class ViewPagerActivity extends AppCompatActivity {
     private static final String TAG = "ViewPagerActivity";
@@ -33,14 +34,18 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     private void initFragmentViewPager() {
         List<Fragment> fragmentList = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
-            fragmentList.add(PageFragment.newInstance(i));
-        }
+        fragmentList.add(PageFragment1.newInstance(0));
+        fragmentList.add(PageFragment2.newInstance(1));
+        fragmentList.add(PageFragment1.newInstance(2));
+        fragmentList.add(PageFragment2.newInstance(3));
+//        for(int i = 0; i < 4; i++){
+//            fragmentList.add(PageFragment1.newInstance(i));
+//        }
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragmentList, this);
         mBinding.viewpager.setAdapter(myFragmentPagerAdapter);
         mBinding.slidingTabs.setupWithViewPager(mBinding.viewpager);
         mBinding.slidingTabs.setTabMode(TabLayout.MODE_FIXED);
-        mBinding.viewpager.setPageTransformer(true,new ZoomOutPageTransformer());
+        mBinding.viewpager.setPageTransformer(true,new DepthPageTransformer());
     }
 
     private void initViewPager() {

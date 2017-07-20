@@ -23,14 +23,14 @@ import cn.bupt.dozenpiggy.testproject.R;
  * (5)在Fragment中需要在Activity加载完成的方法onActivityCreated(Bundle savedInstanceState)中 获取数据并更新UI
  */
 
-public class PageFragment extends Fragment {
+public class PageFragment1 extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
     private int mPage;
 
-    public static PageFragment newInstance(int page) {
+    public static PageFragment1 newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARG_PAGE, page);
-        PageFragment pageFragment = new PageFragment();
+        PageFragment1 pageFragment = new PageFragment1();
         pageFragment.setArguments(args);
         return pageFragment;
     }
@@ -44,7 +44,7 @@ public class PageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_page1, container, false);
         TextView textView = (TextView) view;
         textView.setText("Fragment #" + mPage);
         return view;
